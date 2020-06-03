@@ -21,22 +21,30 @@ android {
     }
 
     defaultConfig {
+        // app
         applicationId rootProject.ext.applicationId
         minSdkVersion 21
         targetSdkVersion 29
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+        // test
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // buildConfig
         buildConfigField "String", "BUILD_TIME", "\"${new Date().getTime()}\""
         buildConfigField "String", "APPLICATION_KEY", "\"${rootProject.ext.applicationKey}\""
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // code shrinking, obfuscation, optimization
+            minifyEnabled true
+
+            // include default proguard
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // signing
             signingConfig signingConfigs.releaseConfig
         }
     }
@@ -58,33 +66,46 @@ android {
 
     productFlavors {
         development {
+            // dimension
             dimension "version"
+
+            // app
             applicationIdSuffix ".development"
             versionNameSuffix "-development"
 
+            // res
             resValue "string", "app_name", "\"${rootProject.ext.development.appName}\""
-            resValue "integer", "config_fetch_interval", "${rootProject.ext.development.configFetchInterval}"
 
+            // buildConfig
+            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.development.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.development.baseServerURL}\""
         }
 
         staging {
+            // dimension
             dimension "version"
+
+            // app
             applicationIdSuffix ".staging"
             versionNameSuffix "-staging"
 
+            // res
             resValue "string", "app_name", "\"${rootProject.ext.staging.appName}\""
-            resValue "integer", "config_fetch_interval", "${rootProject.ext.staging.configFetchInterval}"
 
+            // buildConfig
+            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.staging.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.staging.baseServerURL}\""
         }
 
         production {
+            // dimension
             dimension "version"
 
+            // res
             resValue "string", "app_name", "\"${rootProject.ext.production.appName}\""
-            resValue "integer", "config_fetch_interval", "${rootProject.ext.production.configFetchInterval}"
 
+            // buildConfig
+            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.production.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.production.baseServerURL}\""
         }
     }
