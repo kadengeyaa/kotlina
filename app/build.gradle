@@ -47,6 +47,28 @@ android {
             // signing
             signingConfig signingConfigs.releaseConfig
         }
+
+        debug {
+            // app
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+
+            // debug
+            debuggable true
+        }
+
+        releaseDebug {
+            // inherit
+            initWith release
+
+            // app
+            applicationIdSuffix ".release.debug"
+            versionNameSuffix "-release-debug"
+
+            // debug
+            debuggable true
+
+        }
     }
 
     compileOptions {
@@ -77,7 +99,7 @@ android {
             resValue "string", "app_name", "\"${rootProject.ext.development.appName}\""
 
             // buildConfig
-            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.development.configFetchInterval}"
+            buildConfigField "Integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.development.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.development.baseServerURL}\""
         }
 
@@ -93,7 +115,7 @@ android {
             resValue "string", "app_name", "\"${rootProject.ext.staging.appName}\""
 
             // buildConfig
-            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.staging.configFetchInterval}"
+            buildConfigField "Integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.staging.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.staging.baseServerURL}\""
         }
 
@@ -105,7 +127,7 @@ android {
             resValue "string", "app_name", "\"${rootProject.ext.production.appName}\""
 
             // buildConfig
-            buildConfigField "integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.production.configFetchInterval}"
+            buildConfigField "Integer", "CONFIG_FETCH_INTERVAL", "${rootProject.ext.production.configFetchInterval}"
             buildConfigField "String", "BASE_SERVER_URL", "\"${rootProject.ext.production.baseServerURL}\""
         }
     }
